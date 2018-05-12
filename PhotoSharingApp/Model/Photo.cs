@@ -11,7 +11,7 @@ namespace PhotoSharingApp.Model
         public String Title { get; set; }
         public byte[] PhotoFile { get; set; }
         public String Description { get; set; }
-        public DateTime  CreateDate { get; set; }
+        public DateTime CreateDate { get; set; }
         public String Owner { get; set; }
 
 
