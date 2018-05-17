@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -12,6 +13,6 @@ namespace PhotoSharingApp.Model
         public String Subject { get; set; }
         public String Body { get; set; }
         public int PhotoID { get; set; }
-
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -13,8 +14,7 @@ namespace PhotoSharingApp.Model
         public String Description { get; set; }
         public DateTime CreateDate { get; set; }
         public String Owner { get; set; }
+        public virtual Photo photo { get; set;  }
 
-
-
-    }
+}
 }
