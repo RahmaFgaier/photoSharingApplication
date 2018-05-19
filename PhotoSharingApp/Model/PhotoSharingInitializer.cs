@@ -13,19 +13,37 @@ namespace PhotoSharingApp.Model
         protected override void Seed(PhotoSharingContext context)
         {
             //Create listof Photo objects
-            var photos = new List<Photo>
-            {
-                new Photo
-                {
-                    Title = "My first Photo",
-                    Description = "This is part of the sample data",
-                    Owner = "Fred"
-                }
-            };
+            List<Photo> photos = new List<Photo>();
+            Photo photo = new Photo();
+            photo.Title = "Test Photo";
+            photo.Description = "test";
+            photo.Owner = "NaokiSato";
+            photo.PhotoFile = System.IO.File.ReadAllBytes("C:\\Users\\Rahma_Fgaier\\photoSharingApplication\\PhotoSharingApp\\Images\\flower.jpeg");
+            photo.ImageMimeType = "image/jpeg";
+            photo.CreateDate = DateTime.Now;
+            photos.Add(photo);
+
             //Add the list of photos to the database and save changes
-            photos.ForEach(s => context.Photos.Add(s));
-            context.SaveChanges(); 
-          
+            foreach (var p in photos)
+            {
+                context.Photos.Add(p);
+            }
+            context.SaveChanges();
+
+            //Create List of Comments
+            List<Comment> comments = new List<Comment>();
+            Comment comment = new Model.Comment();
+            comment.PhotoID = 1; 
+            comment.User= "NaokiSato";
+            comment.Subject = "Test Comment";
+            comment.Body = "This comment should appear in photo 1";
+
+            comments.Add(comment);
+            foreach (var c in comments)
+            {
+                context.Comments.Add(c);
+            }
+            context.SaveChanges();
         }
     }
 }
