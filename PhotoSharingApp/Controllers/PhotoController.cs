@@ -31,17 +31,7 @@ namespace PhotoSharingApp.Controllers
             }
         }
 
-        //gets a photo with a particular ID and passes it to the Details view 
-        public ActionResult Details (int id = 0)
-        {
-            Photo photo = context.Photos.Find(id); 
-            if (photo == null)
-            {
-                return HttpNotFound(); 
-            }
-            return View("Details", photo); 
-        }
-
+  
         public ActionResult Display(int id)
         {
             List<Photo> photos = context.Photos.ToList();
@@ -53,11 +43,30 @@ namespace PhotoSharingApp.Controllers
                 return HttpNotFound();
         }
 
+
+        public ActionResult GetPhotoByTitle(string title)
+        {
+            var query = from p in context.Photos
+                        where p.Title == title
+                        select p;
+            Photo requestedPhoto = (Photo)query.FirstOrDefault();
+            if (requestedPhoto != null)
+            {
+                return View("Details", requestedPhoto);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
+
+      
         //Create Photo
         public ActionResult Create()
         {
             Photo newPhoto = new Photo();
-            newPhoto.CreateDate = DateTime.Now; 
+
             return View("Create", newPhoto);
         }
 
@@ -72,6 +81,7 @@ namespace PhotoSharingApp.Controllers
                     photo.ImageMimeType = image.ContentType;
                     photo.PhotoFile = new byte[image.ContentLength];
                     image.InputStream.Read(photo.PhotoFile, 0, image.ContentLength);
+
                     context.Photos.Add(photo);
                     context.SaveChanges();
                     return RedirectToAction("Index");

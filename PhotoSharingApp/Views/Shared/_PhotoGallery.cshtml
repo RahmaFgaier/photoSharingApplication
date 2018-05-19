@@ -1,0 +1,45 @@
+﻿
+@model IEnumerable<PhotoSharingApp.Model.Photo>
+@foreach (var item in Model)
+{
+    <h3>"@item.Title"</h3>
+    if (item.PhotoFile != null)
+    {
+        <img width="200"
+             src="@Url.Action("GetImage",
+"Photo",
+new { id = item.PhotoID })" />
+
+    }
+
+    <p>
+        Created By:
+        @Html.DisplayFor(
+model => item.Owner)
+    </p>
+    <p>
+        Created On:
+        @Html.DisplayFor(
+model => item.CreateDate)
+    </p>
+    @Html.ActionLink("Display", "Display",
+new { id = item.PhotoID })
+
+
+}
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_PhotoGallery</title>
+</head>
+<body>
+    <div>
+    </div>
+</body>
+</html>
